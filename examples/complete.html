@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <link href="../dist/fg-formgenerator.css" rel="stylesheet" />
+    <link href="../dev/style.css" rel="stylesheet" />
+  </head>
+  <body>
+
+
+    <form class="fg-form" style="width:700px;">
+
+      <h2>FG FORM GENERATOR</h2>
+
+      <div class="fg-input"
+        data-type="text"
+        data-label="Training title"
+        data-name="txt_1"
+        data-validation="required"
+        data-placeholder="insert training title"
+        data-current="">
+      </div>
+
+      <div class="fg-input"
+        data-type="textarea"
+        data-label="Training Participant"
+        data-name="title"
+        data-validation="required"
+        data-placeholder="insert training participants"
+        data-current="">
+      </div>
+
+      <div class="fg-input"
+        data-type="date"
+        data-label="Start Date"
+        data-name="start_date"
+        data-validation="required"
+        data-current="">
+      </div>
+
+      <div class="fg-input"
+        data-type="combobox"
+        data-label="Combobox field"
+        data-name="cmbx_1"
+        data-validation="required"
+        data-item-label="Opt 1, Opt 2, Opt 3"
+        data-item-value="Val 1, Val 2, Val 3"
+        data-current="">
+      </div>
+
+      <div class="fg-input"
+        data-type="radio"
+        data-label="Radio"
+        data-name="gender"
+        data-validation=""
+        data-item-label="Male,Female"
+        data-item-value="M,F"
+        data-current="F">
+      </div>
+
+      <div class="fg-input"
+        data-type="checkbox"
+        data-label="Checkboxes"
+        data-name="gender"
+        data-validation="required"
+        data-item-label="Check 1,Check 2,Check 3, Check 4"
+        data-item-value="Chk1,Chk2,Chk3,Chk4"
+        data-current="Chk2,Chk4"></div>
+
+
+      <div class="fg-input"
+        data-type="text-autocomplete"
+        data-label="Autocomplete Field"
+        data-name="auto_1"
+        data-validation=""
+        data-placeholder="insert autocomplete text"
+        data-current=""
+        data-items="Foo, Bar, John, Doe, Hello, World">
+      </div>
+
+      <div class="fg-input"
+        data-type="text"
+        data-label="Training title"
+        data-name="txt_1"
+        data-validation="required"
+        data-placeholder="insert training title"
+        data-current=""
+        data-multiple="+ add more field">
+      </div>
+
+
+
+    </form>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/underscore.min.js"></script>
+    <script src="../dev/fg-formgenerator.js"></script>
+  </body>
+</html>

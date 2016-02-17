@@ -11,14 +11,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:t4t5/sweetalert.git"
+    "url": "git@github.com:adhywiranata/fg-formgenerator"
   },
   "devDependencies": {
     "jquery": "~2.1.4",
     "underscore": "~1.8.3"
   },
   "version": "1.0",
-  "_source": "git://github.com/t4t5/sweetalert.git",
+  "_source": "git://github.com/adhywiranata/fg-formgenerator",
   "_target": "~1.0",
   "_originalSource": "fg-formgenerator",
   "_direct": true
