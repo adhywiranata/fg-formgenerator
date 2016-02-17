@@ -3,7 +3,7 @@
 FG FormGenerator is a simple, yet powerful HTML Form Generator.
 This plugin requires Jquery.js and Underscore.js.
 
-#Installation
+##Installation
 
 via Bower
 ```bash
@@ -18,7 +18,7 @@ or download the Js and CSS files manually and use these script to use them
 **Note:** this plugin relies on Jquery.js and Underscore.js. Don't forget to use them
 before the fg-formgenerator js script.
 
-#Usage
+##Usage
 
 Define the container form:
 
@@ -39,7 +39,7 @@ Create the most basic form field inside the form tag:
 </div>
 ```
 
-##Field Types
+###Field Types
 
 data-type = text|combobox|select-option|radio|checkbox|date|autocomplete-text
 
@@ -48,4 +48,4 @@ combobox (alias: select-option): a normal select-option input
 radio: normal radio button input
 checkbox: normal checkbox input
 date: three fields of Day, Months, and Year. Month field configuration is highly customizable.
-autocomplete-text: text input with autocomplete on keyup feature 
+autocomplete-text: text input with autocomplete on keyup feature
