@@ -10,11 +10,14 @@
 
       <h2>FG FORM GENERATOR</h2>
 
+      <h4>Basic Fields </h4>
+      <hr/>
+
       <div class="fg-input"
         data-type="text"
         data-label="Training title"
         data-name="txt_1"
-        data-validation="required"
+        data-validation=""
         data-placeholder="insert training title"
         data-current="">
       </div>
@@ -23,16 +26,8 @@
         data-type="textarea"
         data-label="Training Participant"
         data-name="title"
-        data-validation="required"
+        data-validation=""
         data-placeholder="insert training participants"
-        data-current="">
-      </div>
-
-      <div class="fg-input"
-        data-type="date"
-        data-label="Start Date"
-        data-name="start_date"
-        data-validation="required"
         data-current="">
       </div>
 
@@ -40,7 +35,7 @@
         data-type="combobox"
         data-label="Combobox field"
         data-name="cmbx_1"
-        data-validation="required"
+        data-validation=""
         data-item-label="Opt 1, Opt 2, Opt 3"
         data-item-value="Val 1, Val 2, Val 3"
         data-current="">
@@ -60,11 +55,21 @@
         data-type="checkbox"
         data-label="Checkboxes"
         data-name="gender"
-        data-validation="required"
+        data-validation=""
         data-item-label="Check 1,Check 2,Check 3, Check 4"
         data-item-value="Chk1,Chk2,Chk3,Chk4"
         data-current="Chk2,Chk4"></div>
 
+      <h4>Special Fields </h4>
+      <hr/>
+
+      <div class="fg-input"
+        data-type="date"
+        data-label="Start Date"
+        data-name="start_date"
+        data-validation=""
+        data-current="">
+      </div>
 
       <div class="fg-input"
         data-type="text-autocomplete"
@@ -80,13 +85,50 @@
         data-type="text"
         data-label="Training title"
         data-name="txt_1"
-        data-validation="required"
+        data-validation=""
         data-placeholder="insert training title"
         data-current=""
         data-multiple="+ add more field">
       </div>
 
+      <h4>Validations </h4>
+      <hr/>
 
+      <div class="fg-input"
+        data-type="text"
+        data-label="You shall not ignore!"
+        data-name="txt_2"
+        data-validation="required"
+        data-placeholder="this field must be filled"
+        data-current="">
+      </div>
+
+      <div class="fg-input"
+        data-type="text"
+        data-label="May I have your email, master brute?"
+        data-name="txt_3"
+        data-validation="email"
+        data-placeholder="this field must be an email"
+        data-current="">
+      </div>
+
+      <div class="fg-input"
+        data-type="text"
+        data-label="Alphabet only!"
+        data-name="txt_3"
+        data-validation="alpha"
+        data-placeholder="insert alphabets"
+        data-current="">
+      </div>
+
+      <div class="fg-input"
+        data-type="text"
+        data-label="Numbers only!"
+        data-name="txt_3"
+        data-validation="numeric"
+        data-placeholder="insert numbers"
+        data-current="">
+      </div>
 
     </form>
     <script src="../lib/jquery.min.js"></script>
