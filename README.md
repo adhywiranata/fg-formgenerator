@@ -43,9 +43,21 @@ Create the most basic form field inside the form tag:
 
 data-type = text|combobox|select-option|radio|checkbox|date|autocomplete-text
 
+
+
 text: a normal text input
+
+
 combobox (alias: select-option): a normal select-option input
+
+
 radio: normal radio button input
+
+
 checkbox: normal checkbox input
-date: three fields of Day, Months, and Year. Month field configuration is highly customizable.
+
+
+date: three fields of Day, Months, and Year. Month field configuration is highly customizable
+
+
 autocomplete-text: text input with autocomplete on keyup feature
