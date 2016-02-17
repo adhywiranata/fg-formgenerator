@@ -61,3 +61,9 @@ date: three fields of Day, Months, and Year. Month field configuration is highly
 
 
 autocomplete-text: text input with autocomplete on keyup feature
+
+##Contributing to the Project
+
+yep, this plugin is far from good, so any contribution would be appreciated!
+Simply fork this repo, then create a pull request. Lets save our coffee-to-code-converter
+brothers from writing the same form input over and over again.
