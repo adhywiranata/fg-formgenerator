@@ -541,7 +541,7 @@ $('.fg-form  > .fg-input').each(function(index,value){
   var valList       = $(this).data('item-value');
   var items         = $(this).data('items');
   var currentVal    = $(this).data('current');
-  var multiple    = $(this).data('multiple');
+  var multiple      = $(this).data('multiple'); // number of maximum multiple items
 
   if(typeof label !== 'undefined' && label != '')
   {
