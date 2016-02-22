@@ -19,7 +19,7 @@ npm install https://github.com/adhywiranata/fg-formgenerator.git
 or download the JS and CSS files manually and use these script to use them
 ```bash
 <script src="dist/fg-formgenerator.min.js"></script>
-<link rel="stylesheet" type="text/css" href="dist/fg-formgenerator.css">
+<link rel="stylesheet" type="text/css" href="dist/fg-formgenerator.min.css">
 ```
 **Note:** this plugin relies on Jquery.js and Underscore.js. Don't forget to use them before the fg-formgenerator js script.
 
