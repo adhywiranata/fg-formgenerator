@@ -10,7 +10,7 @@ via Bower
 bower install https://github.com/adhywiranata/fg-formgenerator.git
 ```
 
-via npm
+via NPM
 ```bash
 npm install https://github.com/adhywiranata/fg-formgenerator.git
 ```
