@@ -1,13 +1,12 @@
 {
   "name": "fg-formgenerator",
-  "homepage": "http://tristanedwards.me/sweetalert",
   "authors": [
     "Adhy Wiranata <adhywiranatap@gmail.com>"
   ],
   "description": "An easy form generator. period.",
   "main": [
     "dist/fg-form-generator.min.js",
-    "dist/fg-form-generator.css"
+    "dist/fg-form-generator.min.css"
   ],
   "repository": {
     "type": "git",
