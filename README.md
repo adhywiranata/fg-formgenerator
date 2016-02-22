@@ -1,7 +1,7 @@
 #FG FormGenerator
 
 FG FormGenerator is a simple, yet powerful HTML Form Generator.
-This plugin requires Jquery.js and Underscore.js.
+Easier to build than your HTML form boilerplates, and more flexible than pure JS plugins. This plugin requires Jquery.js and Underscore.js.
 
 ##Installation
 
@@ -175,9 +175,8 @@ email: the input must be in a valid email format.
 There are several features planned on the next release, such as:
 
 1. data-func to call user-defined javascript functions.
-2. data-class and data-id, for input class and id injection.
-3. data-ajax for ajax call during the input blur or keyups.
-4. rewrite these into ES6!
+2. data-ajax for ajax call during the input blur or keyups.
+3. rewrite these into ES6!
 
 ##Contributing to the Project
 
