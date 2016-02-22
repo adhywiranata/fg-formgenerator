@@ -105,6 +105,11 @@ the value of data-current, NOT the data-item-label.
   data-current="Prakoso, Muljono, Amidjojo"
 ```
 
+data-classes: define the HTML classes applied the input. Each classes is separated by spaces.
+
+```bash
+  data-classes="input-form input-select"
+```
 
 data-items: ONLY for Autocomplete-text. List out all items where the
 autocomplete take values from. Uses comma separator for each values.
