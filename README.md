@@ -7,16 +7,21 @@ This plugin requires Jquery.js and Underscore.js.
 
 via Bower
 ```bash
-bower install https://github.com/adhywiranata/fg-formgenerator.git
+bower install fg-formgenerator
 ```
 
-or download the Js and CSS files manually and use these script to use them
+via npm
+```bash
+npm install fg-formgenerator
+```
+
+
+or download the JS and CSS files manually and use these script to use them
 ```bash
 <script src="dist/fg-formgenerator.min.js"></script>
 <link rel="stylesheet" type="text/css" href="dist/fg-formgenerator.css">
 ```
-**Note:** this plugin relies on Jquery.js and Underscore.js. Don't forget to use them
-before the fg-formgenerator js script.
+**Note:** this plugin relies on Jquery.js and Underscore.js. Don't forget to use them before the fg-formgenerator js script.
 
 ##Usage
 
