@@ -176,9 +176,15 @@ There are several features planned on the next release, such as:
 
 1. data-func to call user-defined javascript functions.
 2. data-ajax for ajax call during the input blur or keyups.
-3. rewrite these into ES6!
+3. Travis CI integration.
+4. Test cases using PhantomJs.
+5. rewrite these into ES6!
 
 ##Contributing to the Project
+
+Since the test cases haven't been written yet, I might overlooked some bugs,
+so if by any chance you got one, please add a new issue. I'll be working on it ASAP.
+
 
 yep, this plugin is far from good, so any contribution would be appreciated!
 Simply fork this repo, then create a pull request. Lets save our coffee-to-code-converter
