@@ -1,46 +1,3 @@
-/*
-=======================================
-FG Form Generator
-Author: Adhy Wiranata
-=======================================
-usage:
-
-<form class="fg-form">
-  <div class="fg-input" [FG ELEMENTS] ></div>
-</form>
-
-FG ELEMENTS
-===========
-- data-type = text|textarea|radio|checkbox|select-option|combobox|date
-- data-label = label of the form input
-- data-name = input name
-- data-validation = required|email|numeric|alpha|alphanumeric
-- data-placeholder = placeholder of/piubthe input. Works on inputs with placeholders
-- data-current = current value of the input. Will select the [value] of options/radio/checkbox
-- data-item-value = string which contain items values for options/radio/checkbox. Use comma separators
-- data-item-label = string which contain items labels for options/radio/checkbox. Use comma separators
-- data-ajax = COMING SOON !
-- data-multiple = give multiplicity fields. any value is okay.
-
-WIP:
-data-validation-> matches|regex|
-data-type -> autocomplete
-data-class -> TO INJECT A CLASS!
-===========
-
-WORKING EXAMPLES
-================
-<div class="col-xs-12 fg-input" data-type="text" data-label="Training title" data-name="title" data-validation="required" data-placeholder="insert training title" data-current=""></div>
-<div class="col-xs-12 fg-input" data-type="text" data-label="Training Provider" data-name="title" data-validation="alpha" data-placeholder="insert training provider name" data-current=""></div>
-<div class="col-xs-12 fg-input" data-type="textarea" data-label="Training Participant" data-name="title" data-validation="required" data-placeholder="insert training participants" data-current=""></div>
-<div class="col-xs-12 fg-input" data-type="text" data-label="Training title" data-name="title" data-validation="required" data-placeholder="insert training title" data-current=""></div>
-<div class="col-xs-12 fg-input" data-type="date" data-label="Start Date" data-name="start_date" data-validation="required" data-current=""></div>
-<div class="col-xs-12 fg-input" data-type="radio" data-label="Start Date" data-name="gender" data-validation="required" data-item-label="Male,Female" data-item-value="M,F" data-current="F"></div>
-<div class="col-xs-12 fg-input" data-type="checkbox" data-label="Start Date" data-name="gender" data-validation="required" data-item-label="Male,Female" data-item-value="M,F" data-current="M,F"></div>
-<div class="col-xs-12 fg-input" data-type="combobox" data-label="Start Date" data-name="gender" data-validation="required" data-item-label="Male,Female" data-item-value="M,F" data-current="F"></div>
-==================
-
-*/
 //Blurring Input Trigger
 
 $(document).on('blur','.fg-validated',function(){
@@ -52,6 +9,144 @@ $(document).on('blur','.fg-validated',function(){
   validateForm(validationRules,inputVal,input);
 });
 
+/*
+ACTION: AUTOCOMPLETE FIELD
+*/
+
+$(document).on('click','.fg-autocomplete-list > li',function(){
+  var content = $(this).html();
+  content = content.replace('<span class="highlight">','');
+  content = content.replace('</span>','');
+  content = _.unescape(content);
+  $(this).parent().parent().find('input').val(capitalizeEachWord(content));
+  $('.fg-autocomplete-list').hide();
+});
+
+//remove elements on click outside
+$(document).on('click', function(event) {
+  if (!$(event.target).closest('input').length) {
+    if (!$(event.target).closest('.fg-autocomplete-list').length) {
+      $('.fg-autocomplete-list').hide();
+    }
+  }
+});
+
+/*
+ACTION: MULTIPLE FIELDS
+*/
+//add field elements on click
+$(document).on('click','.fg-more-field', function(event) {
+  var new_field = '';
+  new_field += '<div class="fg-input-container fg-input-multipler">';
+  new_field += '<div class="one-twelfth">&nbsp;';
+
+  new_field += '<div class="fg-remove-field"><span>x</span></div>';
+  new_field += '</div>';
+  new_field += '<div class="eleven-twelfth">';
+  new_field += $(this).parent().find('.fg-input-container').html();
+  new_field += '</div>';
+  new_field += '</div>';
+  $(this).before(new_field);
+});
+
+function eachMultipler(multipler, remove){
+  var data = '';
+  is_repetition = multipler.parent().parent().find('.fg-input-multipler-hidden').val();
+
+  //IF is_repetition FOUND, then it is NOT a repetition. if it is undefined, it is the repetition.
+  var mult_parent = multipler.parent().parent();
+  if(typeof is_repetition == 'undefined')
+  {
+    mult_parent = multipler.parent().parent().parent();
+  }
+  if(remove == 1)
+  {
+    mult_hidden = mult_parent.find('.fg-input-container-hidden');
+    multipler.parent().parent().remove();
+    mult_parent = mult_hidden.parent();
+  }
+
+  mult_parent.find('.fg-input-multipler input').each(function(index,elem){
+    data += $(elem).val() + '||';
+  });
+
+  mult_parent.find('.fg-input-multipler-hidden').val(data);
+  return data;
+}
+
+$(document).on('blur','.fg-input-multipler input',function(){
+
+  //re select each multipler fields inputs
+  var data = eachMultipler( $(this) );
+
+  curr_val = $(this).parent().parent().find('.fg-input-multipler-hidden').val();
+
+  if(typeof curr_val == 'undefined')
+  {
+    curr_val = $(this).parent().parent().parent().find('.fg-input-multipler-hidden').val();
+    $(this).parent().parent().parent().find('.fg-input-multipler-hidden').val(data);
+  }
+  else{
+    $(this).parent().parent().find('.fg-input-multipler-hidden').val(data);
+  }
+});
+
+$(document).on('click','.fg-remove-field',function(){
+
+  var selector = $(this).parent().parent().find('input');
+  var data = eachMultipler( selector,1 ) //selector, remove TRUE
+});
+
+/*
+ACTION: DATE FIELD
+*/
+function eachDate(selector)
+{
+  var dateParent = selector.parent().parent();
+  var hiddenDate = selector.parent().parent().find('.fg-date-hidden');
+  var d  = dateParent.find('.fg-date-d').val();
+  var mo = dateParent.find('.fg-date-m').find('option:selected').val();
+  var yr = dateParent.find('.fg-date-y').val();
+  var err = '';
+  if( d == '' && mo == '00' && yr == ''){
+    //SKIP INVALID DATE FORMAT
+    err = '';
+  }else{
+    if(d == '' || parseInt(d) < 1 || parseInt(d) > 31){
+      err = 'invalid date';
+    }
+    else if(mo == '00'){
+      err = 'invalid date';
+    }
+    else if(yr == '' || yr.length != 4){
+      err = 'invalid date';
+    }
+    else{
+      err = '';
+    }
+  }
+  dateParent.find('.fg-error').html(err);
+  if(err == '' && mo != '00')
+  {
+    hiddenDate.val(yr + '-' + mo + '-' + d);
+  }
+  else
+  {
+    hiddenDate.val('');
+  }
+}
+
+$(document).on('blur','.fg-date-d',function(){
+  eachDate( $(this) );
+});
+
+$(document).on('blur','.fg-date-m',function(){
+  eachDate( $(this) );
+});
+
+$(document).on('blur','.fg-date-y',function(){
+  eachDate( $(this) );
+});
 
 //Submitting Form
 

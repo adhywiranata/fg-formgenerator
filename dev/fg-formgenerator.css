@@ -1,3 +1,9 @@
+.fg-input-container{
+  height:auto;
+  overflow: hidden;
+  padding:0;
+}
+
 .fg-input{
   position: relative;
   padding:0px;
@@ -61,9 +67,40 @@
 }
 
 .fg-error{
-  font-size:0.7em;
+  float:left;
+  font-size:0.8em;
   color:red;
   padding:10px;
+  width:100%;
+}
+
+.fg-remove-field{
+  color:red;
+  text-align: center;
+  font-size:1.5em;
+  width:100%;
+  float:right;
+  padding:0;
+  padding-top:5px;
+  margin:-2px;
+  cursor:pointer;
+}
+
+.fg-remove-field > span{
+  text-align: center;
+}
+
+.one-twelfth{
+  padding:0;
+  float:left;
+  width:8.33%;
+}
+
+.two-twelfth{
+  padding:0;
+  float:left;
+  width:16.67%;
+  position: relative;
 }
 
 .three-twelfth{
@@ -76,4 +113,16 @@
   padding:0;
   float:left;
   width:50%;
+}
+
+.ten-twelfth{
+  padding:0;
+  float:left;
+  width:83.33%;
+}
+
+.eleven-twelfth{
+  padding:0;
+  float:left;
+  width:91.67%;
 }

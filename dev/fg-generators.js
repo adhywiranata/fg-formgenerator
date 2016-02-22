@@ -19,7 +19,18 @@ function Generator(data){
   this.multiple     = data['multiple'];
   this.input        = '';
   this.input += generateLabel(this.label,this.inputIndex);
-  this.input += '<div class="fg-input-container">';
+
+  var multi_class = ''; //for multiplicity purpose
+
+  if(typeof this.multiple !== 'undefined' && this.multiple != '')
+  {
+    this.input += '<div class="fg-input-container-hidden">';
+    this.input += '<input type="hidden" class="fg-input-multipler-hidden" name="' + this.name + '">';
+    this.input += '</div>';
+    multi_class = 'fg-input-multipler';
+  }
+
+  this.input += '<div class="fg-input-container ' + multi_class + '">';
 
   if(typeof this.ids === 'undefined' || this.ids == '')
   {
@@ -92,11 +103,11 @@ function generateLabel(label,inputIndex){
 
 function generateMonthOptions(){
   var months = [
-    '01','02','03','04',
+    '00','01','02','03','04',
     '05','06','07','08',
     '09','10','11','12'];
   var monthsLabel = [
-    'January','February','March',
+    '-- Input Month --','January','February','March',
     'April','May','June','July',
     'August','September','October',
     'November','December'];
@@ -259,12 +270,15 @@ function generateDate(ids,classes,name,currentVal){
   input = '';
   //Day Input
   input += '<div class="row">';
+  input += '<input type="hidden" name="';
+  input += name;
+  input += '" class="fg-date-hidden" value=""/>';
   input += '<div class="three-twelfth">';
   input += '<input type="text" name="';
   input += name + '_day';
   input += '" class="';
   input += classes;
-  input += '" placeholder="Day" maxlength="2"/>';
+  input += ' fg-date-d" placeholder="Day" maxlength="2"/>';
   input += '</div>';
 
   //Month Input
@@ -273,7 +287,7 @@ function generateDate(ids,classes,name,currentVal){
   input += name + '_month';
   input += '" class="';
   input += classes;
-  input += '">';
+  input += ' fg-date-m">';
   input += generateMonthOptions();
   input += '</select>';
   input += '</div>';
@@ -284,32 +298,8 @@ function generateDate(ids,classes,name,currentVal){
   input += name + '_year';
   input += '" class="';
   input += classes;
-  input += '" placeholder="Year" maxlength="4"/>';
+  input += ' fg-date-y" placeholder="Year" maxlength="4"/>';
   input += '</div>';
 
   return input;
 }
-
-$(document).on('click','.fg-autocomplete-list > li',function(){
-  var content = $(this).html();
-  content = content.replace('<span class="highlight">','');
-  content = content.replace('</span>','');
-  content = _.unescape(content);
-  $(this).parent().parent().find('input').val(capitalizeEachWord(content));
-  $('.fg-autocomplete-list').hide();
-});
-
-//remove elements on click outside
-$(document).on('click', function(event) {
-  if (!$(event.target).closest('input').length) {
-    if (!$(event.target).closest('.fg-autocomplete-list').length) {
-      $('.fg-autocomplete-list').hide();
-    }
-  }
-});
-
-//add field elements on click
-$(document).on('click','.fg-more-field', function(event) {
-  var new_field = $(this).parent().find('.fg-input-container').html();
-  $(this).before(new_field);
-});
