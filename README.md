@@ -176,9 +176,11 @@ There are several features planned on the next release, such as:
 
 1. data-func to call user-defined javascript functions.
 2. data-ajax for ajax call during the input blur or keyups.
-3. Travis CI integration.
-4. Test cases using PhantomJs.
-5. rewrite these into ES6!
+3. More input validations.
+4. Customizable error messages.
+5. Travis CI integration.
+6. Test cases using PhantomJs.
+7. rewrite these into ES6!
 
 ##Contributing to the Project
 
