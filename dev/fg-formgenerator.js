@@ -1,8 +1,6 @@
-console.log('fg is running....');
-
 /*
 =======================================
-BOOTSTRAP V3 Integrated Form Generator
+FG Form Generator
 Author: Adhy Wiranata
 =======================================
 usage:
@@ -156,35 +154,13 @@ $(document).on('keyup','.fg-autocomplete',function(e){
   }
 });
 
-$(document).on('click','.fg-autocomplete-list > li',function(){
-  var content = $(this).html();
-  content = content.replace('<span class="highlight">','');
-  content = content.replace('</span>','');
-  content = _.unescape(content);
-  $(this).parent().parent().find('input').val(capitalizeEachWord(content));
-  $('.fg-autocomplete-list').hide();
-});
-
-//remove elements on click outside
-$(document).on('click', function(event) {
-  if (!$(event.target).closest('input').length) {
-    if (!$(event.target).closest('.fg-autocomplete-list').length) {
-      $('.fg-autocomplete-list').hide();
-    }
-  }
-});
-
-//add field elements on click
-$(document).on('click','.fg-more-field', function(event) {
-  var new_field = $(this).parent().find('.fg-input-container').html();
-  $(this).before(new_field);
-});
-
 //iterate each input
 
 $('.fg-form  > .fg-input').each(function(index,value){
   var inputIndex    = 'fg-input-' + index;
   var template      = '';
+  var ids           = $(this).data('ids');
+  var classes       = $(this).data('classes');
   var label         = $(this).data('label');
   var name          = $(this).data('name');
   var validation    = $(this).data('validation');
@@ -198,6 +174,8 @@ $('.fg-form  > .fg-input').each(function(index,value){
 
   var data = Array();
   data['inputIndex']  = inputIndex;
+  data['ids']         = ids;
+  data['classes']     = classes;
   data['label']       = label;
   data['type']        = type;
   data['name']        = name;
@@ -210,7 +188,6 @@ $('.fg-form  > .fg-input').each(function(index,value){
   data['multiple']    =  multiple;
 
   var generator = new Generator(data);
-  console.log(generator.input);
   $(this).html(generator.input);
 
   if(validation.indexOf('required') > -1)
@@ -223,7 +200,14 @@ $('.fg-form  > .fg-input').each(function(index,value){
   {
     inputSelector = 'textarea';
   }
-  $(this).find(inputSelector).attr('id',inputIndex).addClass('fg-validated').attr('data-validation',validation);
+
+  if(typeof ids === 'undefined' || ids == '')
+  {
+    ids = '';
+  }
+
+  ids = inputIndex;
+  $(this).find(inputSelector).attr('id',ids).addClass('fg-validated').attr('data-validation',validation);
 
 });
 

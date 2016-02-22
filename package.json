@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-concat": "*",
+    "gulp-minify-css": "*",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "*"
+  }
+}

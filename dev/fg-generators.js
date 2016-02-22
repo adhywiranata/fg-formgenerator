@@ -5,6 +5,8 @@
 */
 
 function Generator(data){
+  this.ids          = data['ids'];
+  this.classes      = data['classes'];
   this.inputIndex   = data['inputIndex'];
   this.label        = data['label'];
   this.type         = data['type'];
@@ -16,41 +18,50 @@ function Generator(data){
   this.items        = data['items'];
   this.multiple     = data['multiple'];
   this.input        = '';
-  console.log(generateLabel(this.label,this.inputIndex));
   this.input += generateLabel(this.label,this.inputIndex);
   this.input += '<div class="fg-input-container">';
+
+  if(typeof this.ids === 'undefined' || this.ids == '')
+  {
+    this.ids = '';
+  }
+
+  if(typeof this.classes === 'undefined' || this.classes == '')
+  {
+    this.classes = '';
+  }
 
   switch(this.type)
   {
     case "text":
-      this.input += generateText(this.name,this.placeholder,this.currentVal);
+      this.input += generateText(this.ids,this.classes,this.name,this.placeholder,this.currentVal);
       break;
     case "password":
-      this.input += generatePassword(this.name,this.placeholder,this.currentVal);
+      this.input += generatePassword(this.ids,this.classes,this.name,this.placeholder,this.currentVal);
       break;
     case "text-autocomplete":
-      this.input += generateAutocompleteText(this.name,this.placeholder,this.currentVal,this.items);
+      this.input += generateAutocompleteText(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.items);
       break;
     case "text-autocomplete":
-      this.input += generateAutocompleteText(this.name,this.placeholder,this.currentVal,this.items);
+      this.input += generateAutocompleteText(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.items);
       break;
     case "textarea":
-      this.input += generateTextarea(this.name,this.placeholder,this.currentVal);
+      this.input += generateTextarea(this.ids,this.classes,this.name,this.placeholder,this.currentVal);
       break;
     case "radio":
-      this.input += generateRadio(this.name,this.labelList,this.valList,this.currentVal);
+      this.input += generateRadio(this.ids,this.classes,this.name,this.labelList,this.valList,this.currentVal);
       break;
     case "checkbox":
-      this.input += generateCheckbox(this.name,this.labelList,this.valList,this.currentVal);
+      this.input += generateCheckbox(this.ids,this.classes,this.name,this.labelList,this.valList,this.currentVal);
       break;
     case "select-option":
-      this.input += generateSelectOption(this.name,this.labelList,this.valList,this.currentVal);
+      this.input += generateSelectOption(this.ids,this.classes,this.name,this.labelList,this.valList,this.currentVal);
       break;
     case "combobox":
-      this.input += generateSelectOption(this.name,this.labelList,this.valList,this.currentVal);
+      this.input += generateSelectOption(this.ids,this.classes,this.name,this.labelList,this.valList,this.currentVal);
       break;
     case "date":
-      this.input += generateDate(this.name,this.currentVal);
+      this.input += generateDate(this.ids,this.classes,this.name,this.currentVal);
       break;
   }
 
@@ -64,40 +75,6 @@ function Generator(data){
   }
 
 }
-
-  /*
-  if(this.type == 'text')
-  {
-    return generateText(name,placeholder,currentVal);
-  }
-  if(this.type == 'password')
-  {
-    return generatePassword(name,placeholder,currentVal);
-  }
-  if(this.type == 'text-autocomplete')
-  {
-    return generateAutocompleteText(name,placeholder,currentVal,items);
-  }
-  if(this.type == 'textarea')
-  {
-    return generateTextarea(name,placeholder,currentVal);
-  }
-  if(this.type == 'radio')
-  {
-    return generateRadio(name,labelList,valList,currentVal);
-  }
-  if(this.type == 'checkbox')
-  {
-    return generateCheckbox(name,labelList,valList,currentVal);
-  }
-  if(this.type == 'select-option' || this.type == 'combobox')
-  {
-    return generateSelectOption(name,labelList,valList,currentVal);
-  }
-  if(this.type == 'date')
-  {
-    return generateDate(name,currentVal);
-  }*/
 
 function generateLabel(label,inputIndex){
   template = '';
@@ -131,48 +108,13 @@ function generateMonthOptions(){
   return option;
 }
 
-/*
-function generateInput(type,name,placeholder,labelList,valList,currentVal,items){
-  if(type == 'text')
-  {
-    return generateText(name,placeholder,currentVal);
-  }
-  if(type == 'password')
-  {
-    return generatePassword(name,placeholder,currentVal);
-  }
-  if(type == 'text-autocomplete')
-  {
-    return generateAutocompleteText(name,placeholder,currentVal,items);
-  }
-  if(type == 'textarea')
-  {
-    return generateTextarea(name,placeholder,currentVal);
-  }
-  if(type == 'radio')
-  {
-    return generateRadio(name,labelList,valList,currentVal);
-  }
-  if(type == 'checkbox')
-  {
-    return generateCheckbox(name,labelList,valList,currentVal);
-  }
-  if(type == 'select-option' || type == 'combobox')
-  {
-    return generateSelectOption(name,labelList,valList,currentVal);
-  }
-  if(type == 'date')
-  {
-    return generateDate(name,currentVal);
-  }
-}
-*/
-
-function generateText(name,placeholder,currentVal){
+function generateText(ids,classes,name,placeholder,currentVal){
   input = '';
   input += '<input type="text" name="';
   input += name;
-  input += '" class="form-control" ';
+  input += '" class="';
+  input += classes;
+  input += '" ';
   input += 'placeholder="';
   input += placeholder;
   input += '" value="';
@@ -181,11 +123,13 @@ function generateText(name,placeholder,currentVal){
   return input;
 }
 
-function generatePassword(name,placeholder,currentVal){
+function generatePassword(ids,classes,name,placeholder,currentVal){
   input = '';
   input += '<input type="password" name="';
   input += name;
-  input += '" class="form-control" ';
+  input += '" class="';
+  input += classes;
+  input += '" ';
   input += 'placeholder="';
   input += placeholder;
   input += '" value="';
@@ -194,11 +138,13 @@ function generatePassword(name,placeholder,currentVal){
   return input;
 }
 
-function generateAutocompleteText(name,placeholder,currentVal,items){
+function generateAutocompleteText(ids,classes,name,placeholder,currentVal,items){
   input = '';
   input += '<input type="text" name="';
   input += name;
-  input += '" class="form-control fg-autocomplete" ';
+  input += '" class="';
+  input += classes;
+  input += ' fg-autocomplete" ';
   input += 'placeholder="';
   input += placeholder;
   input += '" value="';
@@ -212,11 +158,13 @@ function generateAutocompleteText(name,placeholder,currentVal,items){
   return input;
 }
 
-function generateTextarea(name,placeholder,currentVal){
+function generateTextarea(ids,classes,name,placeholder,currentVal){
   input = '';
   input += '<textarea name="';
   input += name;
-  input += '" class="form-control" ';
+  input += '" class="';
+  input += classes;
+  input += '" ';
   input += 'placeholder="';
   input += placeholder;
   input += '">';
@@ -225,7 +173,7 @@ function generateTextarea(name,placeholder,currentVal){
   return input;
 }
 
-function generateRadio(name,labelList,valList,currentVal){
+function generateRadio(ids,classes,name,labelList,valList,currentVal){
   labelList   = labelList.split(",");
   valList     = valList.split(",");
   //currentVal  = currentVal.split(",");
@@ -252,7 +200,7 @@ function generateRadio(name,labelList,valList,currentVal){
   return input;
 }
 
-function generateCheckbox(name,labelList,valList,currentVal){
+function generateCheckbox(ids,classes,name,labelList,valList,currentVal){
   labelList = labelList.split(",");
   valList   = valList.split(",");
 
@@ -279,13 +227,15 @@ function generateCheckbox(name,labelList,valList,currentVal){
   return input;
 }
 
-function generateSelectOption(name,labelList,valList,currentVal){
+function generateSelectOption(ids,classes,name,labelList,valList,currentVal){
   labelList = labelList.split(",");
   valList   = valList.split(",");
 
   input = '<select name="';
   input += name;
-  input += '" class="form-control">';
+  input += '" class="';
+  input += classes;
+  input += '">';
 
   for(var i=0;i<valList.length;i++)
   {
@@ -305,21 +255,25 @@ function generateSelectOption(name,labelList,valList,currentVal){
   return input;
 }
 
-function generateDate(name,currentVal){
+function generateDate(ids,classes,name,currentVal){
   input = '';
   //Day Input
   input += '<div class="row">';
   input += '<div class="three-twelfth">';
   input += '<input type="text" name="';
   input += name + '_day';
-  input += '" class="form-control" placeholder="Day" maxlength="2"/>';
+  input += '" class="';
+  input += classes;
+  input += '" placeholder="Day" maxlength="2"/>';
   input += '</div>';
 
   //Month Input
   input += '<div class="six-twelfth">';
   input += '<select name="';
   input += name + '_month';
-  input += '" class="form-control">';
+  input += '" class="';
+  input += classes;
+  input += '">';
   input += generateMonthOptions();
   input += '</select>';
   input += '</div>';
@@ -328,8 +282,34 @@ function generateDate(name,currentVal){
   input += '<div class="three-twelfth">';
   input += '<input type="text" name="';
   input += name + '_year';
-  input += '" class="form-control" placeholder="Year" maxlength="4"/>';
+  input += '" class="';
+  input += classes;
+  input += '" placeholder="Year" maxlength="4"/>';
   input += '</div>';
 
   return input;
 }
+
+$(document).on('click','.fg-autocomplete-list > li',function(){
+  var content = $(this).html();
+  content = content.replace('<span class="highlight">','');
+  content = content.replace('</span>','');
+  content = _.unescape(content);
+  $(this).parent().parent().find('input').val(capitalizeEachWord(content));
+  $('.fg-autocomplete-list').hide();
+});
+
+//remove elements on click outside
+$(document).on('click', function(event) {
+  if (!$(event.target).closest('input').length) {
+    if (!$(event.target).closest('.fg-autocomplete-list').length) {
+      $('.fg-autocomplete-list').hide();
+    }
+  }
+});
+
+//add field elements on click
+$(document).on('click','.fg-more-field', function(event) {
+  var new_field = $(this).parent().find('.fg-input-container').html();
+  $(this).before(new_field);
+});

@@ -67,11 +67,13 @@
 }
 
 .three-twelfth{
+  padding:0;
   float:left;
   width:25%;
 }
 
 .six-twelfth{
+  padding:0;
   float:left;
   width:50%;
 }

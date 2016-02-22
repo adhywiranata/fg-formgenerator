@@ -1,11 +1,3 @@
-
-/* Validator Class */
-function Validator(rules,input,elem){
-  this.rules  = rules;
-  this.input  = input;
-  this.elem   = elem;
-}
-
 //VALIDATION ACTIONS
 
 function validateRequired(value)
@@ -49,6 +41,8 @@ function validateAlpha(value)
     return false;
   }
 }
+
+//FORM VALIDATIONS
 
 function validateForm(validationRules,inputVal,input)
 {
@@ -95,7 +89,7 @@ function validateForm(validationRules,inputVal,input)
     }
   }
 
-  //ALPHA
+  //EMAIL
   if(validationRules.indexOf('email') > -1)
   {
     if(validateEmail(inputVal))
