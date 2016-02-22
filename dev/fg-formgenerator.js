@@ -43,352 +43,6 @@ WORKING EXAMPLES
 ==================
 
 */
-
-
-
-
-//VALIDATION ACTIONS
-
-function validateRequired(value)
-{
-  if(value == '')
-  {
-    return false;
-  }
-  else
-  {
-    return true;
-  }
-}
-
-function validateEmail(value)
-{
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(value);
-}
-
-function validateNumeric(value)
-{
-  if (value.match(/^[0-9]+$/))
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-function validateAlpha(value)
-{
-  if (value.match(/^[a-zA-Z]*$/))
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-function validateForm(validationRules,inputVal,input)
-{
-  var errorFlag = 0;
-  //REQUIRED (must be filled)
-  if(validationRules.indexOf('required') > -1)
-  {
-    if(validateRequired(inputVal))
-    {
-      input.parent().find('.fg-error').html('');
-    }
-    else
-    {
-      input.parent().find('.fg-error').html('Must be filled');
-      errorFlag++;
-    }
-  }
-
-  //NUMERIC
-  if(validationRules.indexOf('numeric') > -1)
-  {
-    if(validateNumeric(inputVal))
-    {
-      input.parent().find('.fg-error').html('');
-    }
-    else
-    {
-      input.parent().find('.fg-error').html('Must be numeric');
-      errorFlag++;
-    }
-  }
-
-  //ALPHA
-  if(validationRules.indexOf('alpha') > -1)
-  {
-    if(validateAlpha(inputVal))
-    {
-      input.parent().find('.fg-error').html('');
-    }
-    else
-    {
-      input.parent().find('.fg-error').html('Must be Alphabetic');
-      errorFlag++;
-    }
-  }
-
-  //ALPHA
-  if(validationRules.indexOf('email') > -1)
-  {
-    if(validateEmail(inputVal))
-    {
-      input.parent().find('.fg-error').html('');
-    }
-    else
-    {
-      input.parent().find('.fg-error').html('Must be Email');
-      errorFlag++;
-    }
-  }
-
-  if(errorFlag == 0)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-//HELPER FUNCTIONS
-
-function capitalizeEachWord(str) {
-    return str.replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-}
-
-//GENERATORS
-
-function generateMonthOptions(){
-  var months = [
-    '01','02','03','04',
-    '05','06','07','08',
-    '09','10','11','12'];
-  var monthsLabel = [
-    'January','February','March',
-    'April','May','June','July',
-    'August','September','October',
-    'November','December'];
-  option = '';
-  for(var i=0;i<12;i++)
-  {
-    option += '<option value="' + months[i] + '">' + monthsLabel[i] + '</option>';
-  }
-  return option;
-}
-
-function generateInput(type,name,placeholder,labelList,valList,currentVal,items){
-  if(type == 'text')
-  {
-    return generateText(name,placeholder,currentVal);
-  }
-  if(type == 'password')
-  {
-    return generatePassword(name,placeholder,currentVal);
-  }
-  if(type == 'text-autocomplete')
-  {
-    return generateAutocompleteText(name,placeholder,currentVal,items);
-  }
-  if(type == 'textarea')
-  {
-    return generateTextarea(name,placeholder,currentVal);
-  }
-  if(type == 'radio')
-  {
-    return generateRadio(name,labelList,valList,currentVal);
-  }
-  if(type == 'checkbox')
-  {
-    return generateCheckbox(name,labelList,valList,currentVal);
-  }
-  if(type == 'select-option' || type == 'combobox')
-  {
-    return generateSelectOption(name,labelList,valList,currentVal);
-  }
-  if(type == 'date')
-  {
-    return generateDate(name,currentVal);
-  }
-}
-
-function generateText(name,placeholder,currentVal){
-  input = '';
-  input += '<input type="text" name="';
-  input += name;
-  input += '" class="form-control" ';
-  input += 'placeholder="';
-  input += placeholder;
-  input += '" value="';
-  input += currentVal;
-  input += '"/>';
-  return input;
-}
-
-function generatePassword(name,placeholder,currentVal){
-  input = '';
-  input += '<input type="password" name="';
-  input += name;
-  input += '" class="form-control" ';
-  input += 'placeholder="';
-  input += placeholder;
-  input += '" value="';
-  input += currentVal;
-  input += '"/>';
-  return input;
-}
-
-function generateAutocompleteText(name,placeholder,currentVal,items){
-  input = '';
-  input += '<input type="text" name="';
-  input += name;
-  input += '" class="form-control fg-autocomplete" ';
-  input += 'placeholder="';
-  input += placeholder;
-  input += '" value="';
-  input += currentVal;
-  input += '" autocomplete="off" data-items="';
-  input += items;
-  input += '"/>';
-
-  input += '<ul class="fg-autocomplete-list">';
-  input += '</ul>';
-  return input;
-}
-
-function generateTextarea(name,placeholder,currentVal){
-  input = '';
-  input += '<textarea name="';
-  input += name;
-  input += '" class="form-control" ';
-  input += 'placeholder="';
-  input += placeholder;
-  input += '">';
-  input += currentVal;
-  input += '</textarea>';
-  return input;
-}
-
-function generateRadio(name,labelList,valList,currentVal){
-  labelList   = labelList.split(",");
-  valList     = valList.split(",");
-  //currentVal  = currentVal.split(",");
-
-  input = '<div class="row"><div class="col-xs-12">';
-
-  for(var i=0;i<valList.length;i++)
-  {
-    input += '<label><input type="radio" name="';
-    input += name;
-    input += '"value="';
-    input += valList[i];
-    input += '" ';
-    if(valList[i] == currentVal)
-    {
-      input += ' checked="checked"';
-    }
-    input += '/> <span> ';
-    input += labelList[i];
-    input += '<span></label>';
-  }
-
-  input += '</div></div>';
-  return input;
-}
-
-function generateCheckbox(name,labelList,valList,currentVal){
-  labelList = labelList.split(",");
-  valList   = valList.split(",");
-
-  input = '<div class="row">';
-
-  for(var i=0;i<valList.length;i++)
-  {
-    input += '<label><input type="checkbox" name="';
-    input += name;
-    input += '"value="';
-    input += valList[i];
-    input += '"';
-    //if some currentVal contains a valList
-    if(currentVal.indexOf(valList) > -1)
-    {
-      input += 'checked="checked"';
-    }
-    input += '/> <span> ';
-    input += labelList[i];
-    input += '<span></label>';
-  }
-
-  input += '</div>';
-  return input;
-}
-
-function generateSelectOption(name,labelList,valList,currentVal){
-  labelList = labelList.split(",");
-  valList   = valList.split(",");
-
-  input = '<select name="';
-  input += name;
-  input += '" class="form-control">';
-
-  for(var i=0;i<valList.length;i++)
-  {
-    input += '<option value="';
-    input += valList[i];
-    input += '" ';
-    if(valList[i] == currentVal)
-    {
-      input += ' selected="selected"';
-    }
-    input += '>';
-    input += labelList[i];
-    input += '</option>';
-  }
-
-  input += '</select>';
-  return input;
-}
-
-function generateDate(name,currentVal){
-  input = '';
-  //Day Input
-  input += '<div class="row">';
-  input += '<div class="three-twelfth">';
-  input += '<input type="text" name="';
-  input += name + '_day';
-  input += '" class="form-control" placeholder="Day" maxlength="2"/>';
-  input += '</div>';
-
-  //Month Input
-  input += '<div class="six-twelfth">';
-  input += '<select name="';
-  input += name + '_month';
-  input += '" class="form-control">';
-  input += generateMonthOptions();
-  input += '</select>';
-  input += '</div>';
-
-  //Year Input
-  input += '<div class="three-twelfth">';
-  input += '<input type="text" name="';
-  input += name + '_year';
-  input += '" class="form-control" placeholder="Year" maxlength="4"/>';
-  input += '</div>';
-
-  return input;
-}
-
 //Blurring Input Trigger
 
 $(document).on('blur','.fg-validated',function(){
@@ -500,7 +154,6 @@ $(document).on('keyup','.fg-autocomplete',function(e){
       $('.fg-autocomplete-list').hide();
       break;
   }
-
 });
 
 $(document).on('click','.fg-autocomplete-list > li',function(){
@@ -541,29 +194,24 @@ $('.fg-form  > .fg-input').each(function(index,value){
   var valList       = $(this).data('item-value');
   var items         = $(this).data('items');
   var currentVal    = $(this).data('current');
-  var multiple      = $(this).data('multiple'); // number of maximum multiple items
+  var multiple      = $(this).data('multiple');
 
-  if(typeof label !== 'undefined' && label != '')
-  {
-    template += '<label for="';
-    template += inputIndex;
-    template += '"><span class="uppercase form-label">';
-    template += label;
-    template += '</span></label>';
-  }
+  var data = Array();
+  data['inputIndex']  = inputIndex;
+  data['label']       = label;
+  data['type']        = type;
+  data['name']        = name;
+  data['placeholder'] = placeholder;
+  data['validation']  = validation;
+  data['labelList']   = labelList;
+  data['valList']     =  valList;
+  data['items']       = items;
+  data['currentVal']  = currentVal;
+  data['multiple']    =  multiple;
 
-  template += '<div class="fg-input-container">';
-  template += generateInput(type,name,placeholder,labelList,valList,currentVal,items);
-  template += '<span class="fg-error fg-error"></span>';
-  template += '</div>';
-  template += '';
-
-  if(typeof multiple !== 'undefined' && multiple != '')
-  {
-    template += '<a class="fg-more-field"> ' + multiple + '</a>';
-  }
-
-  $(this).html(template);
+  var generator = new Generator(data);
+  console.log(generator.input);
+  $(this).html(generator.input);
 
   if(validation.indexOf('required') > -1)
   {
@@ -576,6 +224,7 @@ $('.fg-form  > .fg-input').each(function(index,value){
     inputSelector = 'textarea';
   }
   $(this).find(inputSelector).attr('id',inputIndex).addClass('fg-validated').attr('data-validation',validation);
+
 });
 
 $('.fg-form  > .fg-submit').each(function(index,value){
