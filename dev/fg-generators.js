@@ -189,7 +189,7 @@ function generateRadio(ids,classes,name,labelList,valList,currentVal){
   valList     = valList.split(",");
   //currentVal  = currentVal.split(",");
 
-  input = '<div class="row"><div class="col-xs-12">';
+  input = '<div class="fg-row"><div class="col-xs-12">';
 
   for(var i=0;i<valList.length;i++)
   {
@@ -215,7 +215,7 @@ function generateCheckbox(ids,classes,name,labelList,valList,currentVal){
   labelList = labelList.split(",");
   valList   = valList.split(",");
 
-  input = '<div class="row">';
+  input = '<div class="fg-row">';
 
   for(var i=0;i<valList.length;i++)
   {
@@ -269,7 +269,7 @@ function generateSelectOption(ids,classes,name,labelList,valList,currentVal){
 function generateDate(ids,classes,name,currentVal){
   input = '';
   //Day Input
-  input += '<div class="row">';
+  input += '<div class="fg-row">';
   input += '<input type="hidden" name="';
   input += name;
   input += '" class="fg-date-hidden" value=""/>';
