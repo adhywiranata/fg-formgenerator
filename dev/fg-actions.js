@@ -251,7 +251,7 @@ $(document).on('keyup','.fg-autocomplete',function(e){
 
 //iterate each input
 
-$('.fg-form  > .fg-input').each(function(index,value){
+$('.fg-form .fg-input').each(function(index,value){
   var inputIndex    = 'fg-input-' + index;
   var template      = '';
   var ids           = $(this).data('ids');
