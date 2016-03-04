@@ -92,9 +92,35 @@ $(document).on('blur','.fg-input-multipler input',function(){
 });
 
 $(document).on('click','.fg-remove-field',function(){
-
   var selector = $(this).parent().parent().find('input');
   var data = eachMultipler( selector,1 ) //selector, remove TRUE
+});
+
+/*
+ACTION: MULTIPLE CHIP FIELDS
+*/
+//add field elements on click
+$(document).on('click','.fg-more-chip', function(event) {
+  var fg_input = $(this).parent().find('.fg-input-container').find('input');
+  var chip = fg_input.val();
+
+  var fg_hidden = $(this).parent().parent().find('.fg-input-container-hidden').find('input');
+  var currVal = fg_hidden.val();
+  fg_hidden.val(currVal + chip + '|||');
+  fg_input.val('');
+  chip = '<div class="fg-chip" data-value="' + chip + '">' + chip + '<span class="fg-remove-chip">X</span><div>';
+  $(this).parent().find('.fg-chip-list').append(chip);
+
+});
+
+$(document).on('click','.fg-remove-chip',function(){
+  var chip = $(this).parent();
+  var erased = chip.data('value') + '|||';
+
+  var fg_hidden = chip.parent().parent().find('.fg-input-container-hidden').find('input');
+  var current = fg_hidden.val();
+  fg_hidden.val(current.replace(erased,''));
+  chip.remove();
 });
 
 /*
@@ -175,7 +201,7 @@ $(document).on('keyup','.fg-autocomplete',function(e){
   $(this).parent().find('.fg-autocomplete-list').show();
   var curr_val  = $(this).val();
   var ul        = $(this).parent().find('.fg-autocomplete-list');
-  var limit     = 5;
+  var limit     = 500;
   var offset    = 0;
 
   if(e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 9 && e.keyCode != 13)
@@ -266,6 +292,7 @@ $('.fg-form .fg-input').each(function(index,value){
   var items         = $(this).data('items');
   var currentVal    = $(this).data('current');
   var multiple      = $(this).data('multiple');
+  var multipleChip  = $(this).data('multiple-chip');
 
   var data = Array();
   data['inputIndex']  = inputIndex;
@@ -281,6 +308,7 @@ $('.fg-form .fg-input').each(function(index,value){
   data['items']       = items;
   data['currentVal']  = currentVal;
   data['multiple']    =  multiple;
+  data['multipleChip']=  multipleChip;
 
   var generator = new Generator(data);
   $(this).html(generator.input);
