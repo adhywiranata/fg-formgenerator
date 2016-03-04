@@ -3,6 +3,12 @@
 FG FormGenerator is a simple, yet powerful HTML Form Generator.
 Easier to build than your HTML form boilerplates, and more flexible than pure JS plugins. This plugin requires Jquery.js and Underscore.js.
 
+Current Version: 1.1
+
+What's Updated:
+- Scrollable Auto-Complete List
+- New Multiple Chip!
+
 ##Installation
 
 via Bower
@@ -128,11 +134,18 @@ prompted on input blur or form submit.
 ```
 
 
-data-multiple: generate a link for a field which can be inputted multiple times.
+data-multiple: generate a link for a field which can be inputted multiple times, in the form of multiple fields.
 Value of this attribute refers to the link value.
 
 ```bash
   data-multiple="+ Add New Field"
+```
+
+data-multiple-chip: generate a link for a field which can be inputted multiple times, in the form of chips.
+Value of this attribute refers to the link value.
+
+```bash
+  data-multiple-chip="+ Add New Field"
 ```
 
 
