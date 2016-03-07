@@ -201,34 +201,47 @@ $(document).on('keyup','.fg-autocomplete',function(e){
   $(this).parent().find('.fg-autocomplete-list').show();
   var curr_val  = $(this).val();
   var ul        = $(this).parent().find('.fg-autocomplete-list');
-  var limit     = 500;
-  var offset    = 0;
 
   if(e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40 && e.keyCode != 9 && e.keyCode != 13)
   {
     ul.html('');
-    var data_list = $(this).data('items');
-    data_arr = data_list.split(',');
+
     if(curr_val != '')
     {
-      for(var i = 0; i < data_arr.length; i++)
+      var data_arr = new Array();
+
+      var get_ajax = $(this).data('get-ajax');
+
+      if(get_ajax != 'undefined' && get_ajax != '')
       {
-        var lowerCase = data_arr[i].toLowerCase();
-        var lowerVal  = curr_val.toLowerCase();
 
-        if(lowerCase.indexOf(lowerVal) > -1)
-        {
-          var highlight     = '<span class="highlight">' + lowerVal + '</span>';
-          var li            = lowerCase.replace(lowerVal,highlight);
-          ul.append('<li data-current-row="0" data-position="middle">' + li + '</li>');
+        $.ajax({
+          url: get_ajax + curr_val,
+          success:function(data)
+          {
+            objJSON = JSON.parse(data);
 
-          offset++;
-        }
-        if(offset == limit) break;
+            var data_string = '';
+
+            for (var i = 0, len = objJSON.length; i < len; ++i) {
+               var elem = objJSON[i];
+               data_string += elem.skill_name + ',';
+            }
+
+            pushAutoComplete($(this),curr_val, data_string,ul);
+          }
+        });
+
+        //callAjax($(this),"http://localhost/cektraining/public/getautocompletedata/skills/skill_name/" + curr_val)
       }
+      else
+      {
+        pushAutoComplete($(this),curr_val,'',ul);
+      }
+    }
+    else
+    {
 
-      $(this).parent().find('.fg-autocomplete-list').find('li:first-child').addClass('autocomplete-highlight').attr('data-current-row','1').attr('data-position','top');
-      $(this).parent().find('.fg-autocomplete-list').find('li:last-child').attr('data-position','bottom');
     }
   }
 
@@ -293,6 +306,7 @@ $('.fg-form .fg-input').each(function(index,value){
   var currentVal    = $(this).data('current');
   var multiple      = $(this).data('multiple');
   var multipleChip  = $(this).data('multiple-chip');
+  var getAjax       = $(this).data('get-ajax');
 
   var data = Array();
   data['inputIndex']  = inputIndex;
@@ -309,6 +323,7 @@ $('.fg-form .fg-input').each(function(index,value){
   data['currentVal']  = currentVal;
   data['multiple']    =  multiple;
   data['multipleChip']=  multipleChip;
+  data['getAjax']     =  getAjax;
 
   var generator = new Generator(data);
   $(this).html(generator.input);

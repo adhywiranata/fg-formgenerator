@@ -4,17 +4,18 @@ var uglify = require("gulp-uglify");
 var concat = require("gulp-concat");
 var rename = require("gulp-rename");
 var jsValidate = require('gulp-jsvalidate');
+var debug = require('gulp-debug');
 
 gulp.task('test-js', function () {
   var err = '';
 	err += 'dev/fg-actions.js: ' + gulp.src('dev/fg-actions.js')
-		.pipe(jsValidate());
+		.pipe(debug()).pipe(jsValidate()) + '\n';
   err += 'dev/fg-generators.js: ' + gulp.src('dev/fg-generators.js')
-		.pipe(jsValidate());
+		.pipe(debug()).pipe(jsValidate()) + '\n';
   err += 'dev/fg-helpers.js: ' + gulp.src('dev/fg-helpers.js')
-		.pipe(jsValidate());
+		.pipe(debug()).pipe(jsValidate()) + '\n';
   err += 'dev/fg-validations.js: ' + gulp.src('dev/fg-validations.js')
-		.pipe(jsValidate());
+		.pipe(debug()).pipe(jsValidate()) + '\n';
 
   console.log(err);
 });
