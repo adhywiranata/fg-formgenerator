@@ -5,21 +5,22 @@
 */
 
 function Generator(data){
-  this.ids          = data['ids'];
-  this.classes      = data['classes'];
-  this.inputIndex   = data['inputIndex'];
-  this.label        = data['label'];
-  this.type         = data['type'];
-  this.name         = data['name'];
-  this.placeholder  = data['placeholder'];
-  this.labelList    = data['labelList'];
-  this.valList      = data['valList'];
-  this.currentVal   = data['currentVal'];
-  this.items        = data['items'];
-  this.multiple     = data['multiple'];
-  this.multipleChip = data['multipleChip'];
-  this.getAjax      = data['getAjax'];
-  this.input        = '';
+  this.ids            = data['ids'];
+  this.classes        = data['classes'];
+  this.inputIndex     = data['inputIndex'];
+  this.label          = data['label'];
+  this.type           = data['type'];
+  this.name           = data['name'];
+  this.placeholder    = data['placeholder'];
+  this.labelList      = data['labelList'];
+  this.valList        = data['valList'];
+  this.currentVal     = data['currentVal'];
+  this.items          = data['items'];
+  this.multiple       = data['multiple'];
+  this.multipleChip   = data['multipleChip'];
+  this.getAjax        = data['getAjax'];
+  this.getAjaxColumn  = data['getAjaxColumn'];
+  this.input          = '';
   this.input += generateLabel(this.label,this.inputIndex);
 
   var multi_class = ''; //for multiplicity purpose
@@ -60,10 +61,10 @@ function Generator(data){
       this.input += generatePassword(this.ids,this.classes,this.name,this.placeholder,this.currentVal);
       break;
     case "text-autocomplete":
-      this.input += generateAutocompleteText(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.items, this.getAjax);
+      this.input += generateAutocompleteText(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.items, this.getAjax, this.getAjaxColumn);
       break;
     case "text-autocomplete-long":
-      this.input += generateAutocompleteLongText(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.items, this.getAjax);
+      this.input += generateAutocompleteLongText(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.items, this.getAjax, this.getAjaxColumn);
       break;
     case "textarea":
       this.input += generateTextarea(this.ids,this.classes,this.name,this.placeholder,this.currentVal);
@@ -164,7 +165,7 @@ function generatePassword(ids,classes,name,placeholder,currentVal){
   return input;
 }
 
-function generateAutocompleteText(ids,classes,name,placeholder,currentVal,items,getAjax){
+function generateAutocompleteText(ids,classes,name,placeholder,currentVal,items,getAjax, getAjaxColumn){
   input = '';
   input += '<input type="text" name="';
   input += name;
@@ -179,6 +180,8 @@ function generateAutocompleteText(ids,classes,name,placeholder,currentVal,items,
   input += items;
   input += '" data-get-ajax="';
   input += getAjax;
+  input += '" data-get-ajax-column="';
+  input += getAjaxColumn;
   input += '" data-json="';
   input += '"/>';
 
@@ -187,7 +190,7 @@ function generateAutocompleteText(ids,classes,name,placeholder,currentVal,items,
   return input;
 }
 
-function generateAutocompleteLongText(ids,classes,name,placeholder,currentVal,items, getAjax){
+function generateAutocompleteLongText(ids,classes,name,placeholder,currentVal,items, getAjax, getAjaxColumn){
   input = '';
   input += '<input type="text" name="';
   input += name;
@@ -202,6 +205,8 @@ function generateAutocompleteLongText(ids,classes,name,placeholder,currentVal,it
   input += items;
   input += '" data-get-ajax="';
   input += getAjax;
+  input += '" data-get-ajax-column="';
+  input += getAjaxColumn;
   input += '" data-json="';
   input += '"/>';
 

@@ -211,6 +211,7 @@ $(document).on('keyup','.fg-autocomplete',function(e){
       var data_arr = new Array();
 
       var get_ajax = $(this).data('get-ajax');
+      var column_name = $(this).data('get-ajax-column');
 
       if(get_ajax != 'undefined' && get_ajax != '')
       {
@@ -220,19 +221,17 @@ $(document).on('keyup','.fg-autocomplete',function(e){
           success:function(data)
           {
             objJSON = JSON.parse(data);
-
+            var arr = $.map(objJSON, function(el) { return el });
             var data_string = '';
 
-            for (var i = 0, len = objJSON.length; i < len; ++i) {
-               var elem = objJSON[i];
-               data_string += elem.skill_name + ',';
+            for (var i = 0, len = arr.length; i < len; ++i) {
+               var elem = arr[i];
+               data_string += elem[column_name] + ',';
             }
 
             pushAutoComplete($(this),curr_val, data_string,ul);
           }
         });
-
-        //callAjax($(this),"http://localhost/cektraining/public/getautocompletedata/skills/skill_name/" + curr_val)
       }
       else
       {
@@ -307,23 +306,25 @@ $('.fg-form .fg-input').each(function(index,value){
   var multiple      = $(this).data('multiple');
   var multipleChip  = $(this).data('multiple-chip');
   var getAjax       = $(this).data('get-ajax');
+  var getAjaxColumn = $(this).data('get-ajax-column');
 
   var data = Array();
-  data['inputIndex']  = inputIndex;
-  data['ids']         = ids;
-  data['classes']     = classes;
-  data['label']       = label;
-  data['type']        = type;
-  data['name']        = name;
-  data['placeholder'] = placeholder;
-  data['validation']  = validation;
-  data['labelList']   = labelList;
-  data['valList']     =  valList;
-  data['items']       = items;
-  data['currentVal']  = currentVal;
-  data['multiple']    =  multiple;
-  data['multipleChip']=  multipleChip;
-  data['getAjax']     =  getAjax;
+  data['inputIndex']    = inputIndex;
+  data['ids']           = ids;
+  data['classes']       = classes;
+  data['label']         = label;
+  data['type']          = type;
+  data['name']          = name;
+  data['placeholder']   = placeholder;
+  data['validation']    = validation;
+  data['labelList']     = labelList;
+  data['valList']       =  valList;
+  data['items']         = items;
+  data['currentVal']    = currentVal;
+  data['multiple']      =  multiple;
+  data['multipleChip']  =  multipleChip;
+  data['getAjax']       =  getAjax;
+  data['getAjaxColumn'] =  getAjaxColumn;
 
   var generator = new Generator(data);
   $(this).html(generator.input);
