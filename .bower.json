@@ -16,6 +16,7 @@
     "jquery": "~2.1.4",
     "underscore": "~1.8.3"
   },
+  "ignore": [],
   "version": "1.0",
   "_source": "git://github.com/adhywiranata/fg-formgenerator",
   "_target": "~1.0",
