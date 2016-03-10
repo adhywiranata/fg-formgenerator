@@ -33,16 +33,16 @@
   top:46px;
   padding:0;
   max-height:100px;
+  padding-bottom:0px;
   overflow-y: auto;
   border:1px solid rgba(0,0,0, .2);
 }
 
 .fg-autocomplete-list > li{
   background:white;
-  padding:5px;
-  border:1px solid rgba(0,0,0, .1);
+  padding:5px 15px;
   border-top:0;
-  width: 98%;
+  width: 95%;
   cursor: pointer;
   list-style: none;
   text-transform: capitalize;
