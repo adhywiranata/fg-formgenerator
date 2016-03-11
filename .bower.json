@@ -17,9 +17,9 @@
     "underscore": "~1.8.3"
   },
   "ignore": ["README.md"],
-  "version": "1.0",
+  "version": "1.0.0",
   "_source": "git://github.com/adhywiranata/fg-formgenerator",
-  "_target": "~1.0",
+  "_target": "~1.0.0",
   "_originalSource": "fg-formgenerator",
   "_direct": true
 }
