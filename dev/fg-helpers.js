@@ -69,3 +69,29 @@ function pushAutoComplete(selector,curr_val,data_string,ul){
   selector.parent().find('.fg-autocomplete-list').find('li:last-child').attr('data-position','bottom');
 
 }
+
+/* IMAGE UPLOAD PREVIEWS */
+function readURL(file,curr_image) {
+
+    var reader = new FileReader();
+    reader.onload = function (e, loop) {
+      $(curr_image).attr('src', e.target.result);
+    }
+    reader.readAsDataURL(file);
+}
+
+$(document).on('change','.fg-input-image',function () {
+    var current_elem = $(this);
+    current_elem.parent().find('.fg-image-previews').html('');
+    var image_count = this.files.length;
+    var image_elem = '';
+    var loop = 0;
+    for(loop=0;loop<image_count;loop++)
+    {
+      //data-image="key-index" key:which input, index:image index
+      image_elem = '<img data-image="99-'+loop+'" class="fg-image-upload-preview" src="" alt=""/>';
+      current_elem.parent().find('.fg-image-previews').append(image_elem);
+      var curr_image = current_elem.parent().find('[data-image="'+ 99 +'-'+ loop +'"]');
+      readURL(this.files[loop],curr_image);
+    }
+});

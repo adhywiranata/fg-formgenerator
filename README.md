@@ -3,10 +3,15 @@
 FG FormGenerator is a simple, yet powerful HTML Form Generator.
 Easier to build than your HTML form boilerplates, and more flexible than pure JS plugins. This plugin requires Jquery.js and Underscore.js.
 
-Current Version: 1.2
+Current Version: 1.3
 
 What's Updated:
-- data-get-ajax="ajax_url" to replace data-current. 
+2 New Input Types:
+- data-type="file"
+- data-type="image"
+
+Version 1.2:
+- data-get-ajax="ajax_url" to replace data-current.
 
 Version 1.1:
 - Scrollable Auto-Complete List
@@ -62,7 +67,7 @@ Each attribute contributed to the input element or functionality.
 data-text: define the input types. Further explanation is on the Field Types section.
 
 ```bash
-  data-type="text|combobox|select-option|radio|checkbox|date|autocomplete-text"
+  data-type="text|combobox|select-option|radio|checkbox|date|autocomplete-text|file|image"
 ```
 
 
@@ -139,6 +144,8 @@ prompted on input blur or form submit.
 
 data-multiple: generate a link for a field which can be inputted multiple times, in the form of multiple fields.
 Value of this attribute refers to the link value.
+Data-multiple for file and image input will have the input can fetch multiple
+file or images
 
 ```bash
   data-multiple="+ Add New Field"
@@ -175,6 +182,9 @@ date: three fields of Day, Months, and Year. Month field configuration is highly
 
 autocomplete-text: text input with autocomplete on keyup feature
 
+file: input file. Without data-multiple, the file is single.
+
+image: input file, works only for images. Will have image previews.
 
 ###Validations
 
