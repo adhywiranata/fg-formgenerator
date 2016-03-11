@@ -3,17 +3,13 @@
 FG FormGenerator is a simple, yet powerful HTML Form Generator.
 Easier to build than your HTML form boilerplates, and more flexible than pure JS plugins. This plugin requires Jquery.js and Underscore.js.
 
-Current Version: 1.3
+Current Version: 1.0
 
 What's Updated:
 2 New Input Types:
 - data-type="file"
 - data-type="image"
-
-Version 1.2:
 - data-get-ajax="ajax_url" to replace data-current.
-
-Version 1.1:
 - Scrollable Auto-Complete List
 - New Multiple Chip!
 
