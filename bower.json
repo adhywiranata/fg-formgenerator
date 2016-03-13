@@ -1,0 +1,27 @@
+{
+  "name": "fg-formgenerator",
+  "authors": [
+    "Adhy Wiranata <adhywiranatap@gmail.com>"
+  ],
+  "description": "An easy form generator. period.",
+  "main": [
+    "dist/fg-form-generator.min.js",
+    "dist/fg-form-generator.min.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:adhywiranata/fg-formgenerator"
+  },
+  "devDependencies": {
+    "jquery": "~2.1.4",
+    "underscore": "~1.8.3"
+  },
+  "ignore": [
+    "README.md"
+  ],
+  "version": "2.0.0",
+  "_source": "git://github.com/adhywiranata/fg-formgenerator",
+  "_target": "~1.0.0",
+  "_originalSource": "fg-formgenerator",
+  "_direct": true
+}
