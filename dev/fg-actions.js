@@ -343,7 +343,7 @@ $('.fg-form .fg-input').each(function(index,value){
   }
 
   //change the input name of the visible input to <name>_display
-  if(typeof multipleChip !== 'undefined' || multipleChip != '')
+  if(typeof multipleChip !== 'undefined' && multipleChip != '')
   {
     var container = $(this).find('.fg-input-container');
     container.find(inputSelector).attr('name','chipFake');
