@@ -41,6 +41,7 @@ function Generator(data){
     }
   }
 
+  //Check if multiple chip is used
   if(typeof this.multipleChip !== 'undefined' && this.multipleChip != '')
   {
     if(this.type == 'file' || this.type == 'image')

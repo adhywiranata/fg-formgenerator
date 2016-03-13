@@ -335,11 +335,20 @@ $('.fg-form .fg-input').each(function(index,value){
   }
 
   var inputSelector = 'input';
+
+  //selector change to textarea instead of finding input
   if(type == 'textarea')
   {
     inputSelector = 'textarea';
   }
 
+  //change the input name of the visible input to <name>_display
+  if(typeof multipleChip !== 'undefined' || multipleChip != '')
+  {
+    $(this).find(inputSelector).attr('name','chipFake');
+  }
+
+  //add id to inputs
   if(typeof ids === 'undefined' || ids == '')
   {
     ids = '';
