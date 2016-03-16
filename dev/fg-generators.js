@@ -139,7 +139,11 @@ function generateLabel(label,inputIndex){
   return template;
 }
 
-function generateMonthOptions(){
+function generateMonthOptions(m){
+
+  var selected = 13;
+  selected = parseInt(m);
+
   var months = [
     '00','01','02','03','04',
     '05','06','07','08',
@@ -150,9 +154,15 @@ function generateMonthOptions(){
     'August','September','October',
     'November','December'];
   option = '';
-  for(var i=0;i<12;i++)
+  for(var i=0;i<13;i++)
   {
-    option += '<option value="' + months[i] + '">' + monthsLabel[i] + '</option>';
+    option += '<option value="' + months[i] + '" ';
+    if(i == selected)
+    {
+      option += 'selected="selected"';
+    }
+    option += '>';
+    option += monthsLabel[i] + '</option>';
   }
   return option;
 }
@@ -379,18 +389,25 @@ function generateSelectOption(ids,classes,name,labelList,valList,currentVal){
 }
 
 function generateDate(ids,classes,name,currentVal){
+
+  var y = currentVal.substring(0,4);
+  var m = currentVal.substring(5,7);
+  var d = currentVal.substring(8,10);
   input = '';
   //Day Input
   input += '<div class="fg-row">';
   input += '<input type="hidden" name="';
   input += name;
-  input += '" class="fg-date-hidden" value=""/>';
+  input += '" class="fg-date-hidden" value="';
+  input += '"/>';
   input += '<div class="three-twelfth">';
   input += '<input type="text" name="';
   input += name + '_day';
   input += '" class="';
   input += classes;
-  input += ' fg-date-d" placeholder="Day" maxlength="2"/>';
+  input += ' fg-date-d" placeholder="Day" maxlength="2" value="';
+  input += y;
+  input += '" />';
   input += '</div>';
 
   //Month Input
@@ -400,7 +417,7 @@ function generateDate(ids,classes,name,currentVal){
   input += '" class="';
   input += classes;
   input += ' fg-date-m">';
-  input += generateMonthOptions();
+  input += generateMonthOptions(m);
   input += '</select>';
   input += '</div>';
 
@@ -410,7 +427,9 @@ function generateDate(ids,classes,name,currentVal){
   input += name + '_year';
   input += '" class="';
   input += classes;
-  input += ' fg-date-y" placeholder="Year" maxlength="4"/>';
+  input += ' fg-date-y" placeholder="Year" maxlength="4" value="';
+  input += d;
+  input += '"/>';
   input += '</div>';
 
   return input;
