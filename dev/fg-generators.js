@@ -406,7 +406,10 @@ function generateDate(ids,classes,name,currentVal){
   input += '" class="';
   input += classes;
   input += ' fg-date-d" placeholder="Day" maxlength="2" value="';
-  input += y;
+  if(d != '00')
+  {
+    input += d;
+  }
   input += '" />';
   input += '</div>';
 
@@ -428,7 +431,10 @@ function generateDate(ids,classes,name,currentVal){
   input += '" class="';
   input += classes;
   input += ' fg-date-y" placeholder="Year" maxlength="4" value="';
-  input += d;
+  if(y != '0000')
+  {
+    input += y;
+  }
   input += '"/>';
   input += '</div>';
 
