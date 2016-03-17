@@ -103,14 +103,15 @@ ACTION: MULTIPLE CHIP FIELDS
 $(document).on('click','.fg-more-chip', function(event) {
   var fg_input = $(this).parent().find('.fg-input-container').find('input');
   var chip = fg_input.val();
-
-  var fg_hidden = $(this).parent().parent().find('.fg-input-container-hidden').find('input');
-  var currVal = fg_hidden.val();
-  fg_hidden.val(currVal + chip + '|||');
-  fg_input.val('');
-  chip = '<div class="fg-chip" data-value="' + chip + '">' + chip + '<span class="fg-remove-chip">X</span><div>';
-  $(this).parent().find('.fg-chip-list').append(chip);
-
+  if(chip != '')
+  {
+    var fg_hidden = $(this).parent().parent().find('.fg-input-container-hidden').find('input');
+    var currVal = fg_hidden.val();
+    fg_hidden.val(currVal + chip + '|||');
+    fg_input.val('');
+    chip = generateChip(chip);
+    $(this).parent().find('.fg-chip-list').append(chip);
+  }
 });
 
 $(document).on('click','.fg-remove-chip',function(){
@@ -290,41 +291,45 @@ $(document).on('keyup','.fg-autocomplete',function(e){
 //iterate each input
 
 $('.fg-form .fg-input').each(function(index,value){
-  var inputIndex    = 'fg-input-' + index;
-  var template      = '';
-  var ids           = $(this).data('ids');
-  var classes       = $(this).data('classes');
-  var label         = $(this).data('label');
-  var name          = $(this).data('name');
-  var validation    = $(this).data('validation');
-  var type          = $(this).data('type');
-  var placeholder   = $(this).data('placeholder');
-  var labelList     = $(this).data('item-label');
-  var valList       = $(this).data('item-value');
-  var items         = $(this).data('items');
-  var currentVal    = $(this).data('current');
-  var multiple      = $(this).data('multiple');
-  var multipleChip  = $(this).data('multiple-chip');
-  var getAjax       = $(this).data('get-ajax');
-  var getAjaxColumn = $(this).data('get-ajax-column');
+  var inputIndex          = 'fg-input-' + index;
+  var template            = '';
+  var ids                 = $(this).data('ids');
+  var classes             = $(this).data('classes');
+  var label               = $(this).data('label');
+  var name                = $(this).data('name');
+  var validation          = $(this).data('validation');
+  var type                = $(this).data('type');
+  var placeholder         = $(this).data('placeholder');
+  var labelList           = $(this).data('item-label');
+  var valList             = $(this).data('item-value');
+  var items               = $(this).data('items');
+  var currentVal          = $(this).data('current');
+  var multiple            = $(this).data('multiple');
+  var multipleChip        = $(this).data('multiple-chip');
+  var multipleSeparator   = $(this).data('multiple-separator');
+  var getAjax             = $(this).data('get-ajax');
+  var getAjaxColumn       = $(this).data('get-ajax-column');
+  var imagePath           = $(this).data('image-path');
 
   var data = Array();
-  data['inputIndex']    = inputIndex;
-  data['ids']           = ids;
-  data['classes']       = classes;
-  data['label']         = label;
-  data['type']          = type;
-  data['name']          = name;
-  data['placeholder']   = placeholder;
-  data['validation']    = validation;
-  data['labelList']     = labelList;
-  data['valList']       =  valList;
-  data['items']         = items;
-  data['currentVal']    = currentVal;
-  data['multiple']      =  multiple;
-  data['multipleChip']  =  multipleChip;
-  data['getAjax']       =  getAjax;
-  data['getAjaxColumn'] =  getAjaxColumn;
+  data['inputIndex']          = inputIndex;
+  data['ids']                 = ids;
+  data['classes']             = classes;
+  data['label']               = label;
+  data['type']                = type;
+  data['name']                = name;
+  data['placeholder']         = placeholder;
+  data['validation']          = validation;
+  data['labelList']           = labelList;
+  data['valList']             = valList;
+  data['items']               = items;
+  data['currentVal']          = currentVal;
+  data['multiple']            = multiple;
+  data['multipleChip']        = multipleChip;
+  data['multipleSeparator']   = multipleSeparator;
+  data['getAjax']             = getAjax;
+  data['getAjaxColumn']       = getAjaxColumn;
+  data['imagePath']           = imagePath;
 
   var generator = new Generator(data);
   $(this).html(generator.input);
@@ -346,6 +351,7 @@ $('.fg-form .fg-input').each(function(index,value){
   if(typeof multipleChip !== 'undefined' && multipleChip != '')
   {
     var container = $(this).find('.fg-input-container');
+    container.find(inputSelector).val('');
     container.find(inputSelector).attr('name','chipFake');
   }
 

@@ -5,26 +5,34 @@
 */
 
 function Generator(data){
-  this.ids            = data['ids'];
-  this.classes        = data['classes'];
-  this.inputIndex     = data['inputIndex'];
-  this.label          = data['label'];
-  this.type           = data['type'];
-  this.name           = data['name'];
-  this.placeholder    = data['placeholder'];
-  this.labelList      = data['labelList'];
-  this.valList        = data['valList'];
-  this.currentVal     = data['currentVal'];
-  this.items          = data['items'];
-  this.multiple       = data['multiple'];
-  this.multipleChip   = data['multipleChip'];
-  this.getAjax        = data['getAjax'];
-  this.getAjaxColumn  = data['getAjaxColumn'];
-  this.input          = '';
-  this.multipleImage  = false;
+  this.ids                  = data['ids'];
+  this.classes              = data['classes'];
+  this.inputIndex           = data['inputIndex'];
+  this.label                = data['label'];
+  this.type                 = data['type'];
+  this.name                 = data['name'];
+  this.placeholder          = data['placeholder'];
+  this.labelList            = data['labelList'];
+  this.valList              = data['valList'];
+  this.currentVal           = data['currentVal'];
+  this.items                = data['items'];
+  this.multiple             = data['multiple'];
+  this.multipleChip         = data['multipleChip'];
+  this.multipleSeparator    = data['multipleSeparator'];
+  this.getAjax              = data['getAjax'];
+  this.getAjaxColumn        = data['getAjaxColumn'];
+  this.imagePath            = data['imagePath'];
+  this.input                = '';
+  this.multipleImage        = false;
+
   this.input += generateLabel(this.label,this.inputIndex);
 
   var multi_class = ''; //for multiplicity purpose
+
+  if(typeof this.multipleSeparator == 'undefined' || this.multipleSeparator == '')
+  {
+    this.multipleSeparator = '|||';
+  }
 
   if(typeof this.multiple !== 'undefined' && this.multiple != '')
   {
@@ -35,7 +43,11 @@ function Generator(data){
     else
     {
       this.input += '<div class="fg-input-container-hidden">';
-      this.input += '<input type="hidden" class="fg-input-multipler-hidden" name="' + this.name + '">';
+      this.input += '<input type="hidden" class="fg-input-multipler-hidden"';
+      this.input += ' value="';
+      this.input += this.currentVal;
+      this.input += '"';
+      this.input += ' name="' + this.name + '">';
       this.input += '</div>';
       multi_class = 'fg-input-multipler';
     }
@@ -51,7 +63,11 @@ function Generator(data){
     else
     {
       this.input += '<div class="fg-input-container-hidden">';
-      this.input += '<input type="hidden" class="fg-input-multipler-hidden" name="' + this.name + '">';
+      this.input += '<input type="hidden" class="fg-input-multipler-hidden" ';
+      this.input += ' value="';
+      this.input += this.currentVal;
+      this.input += '"';
+      this.input += ' name="' + this.name + '">';
       this.input += '</div>';
     }
   }
@@ -80,7 +96,7 @@ function Generator(data){
       this.input += generateFile(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.multipleImage);
       break;
     case "image":
-      this.input += generateImage(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.multipleImage);
+      this.input += generateImage(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.imagePath,this.multipleImage,this.multipleSeparator);
       break;
     case "text-autocomplete":
       this.input += generateAutocompleteText(this.ids,this.classes,this.name,this.placeholder,this.currentVal,this.items, this.getAjax, this.getAjaxColumn);
@@ -119,7 +135,20 @@ function Generator(data){
 
   if(typeof this.multipleChip !== 'undefined' && this.multipleChip != '' && this.type != 'file' && this.type != 'image')
   {
-    this.input += '<div class="fg-row fg-chip-list"></div>';
+
+    var chips = [];
+    chips     = this.currentVal.split(this.multipleSeparator);
+    var i     = 0;
+
+    this.input += '<div class="fg-row fg-chip-list">';
+    for(i=0;i<chips.length;i++)
+    {
+      if(chips[i] != '')
+      {
+        this.input += generateChip(chips[i]);
+      }
+    }
+    this.input += '</div>';
     this.input += '<a class="fg-more-chip"> ' + this.multipleChip + '</a>';
   }
 
@@ -165,6 +194,17 @@ function generateMonthOptions(m){
     option += monthsLabel[i] + '</option>';
   }
   return option;
+}
+
+function generateChip(chiptext)
+{
+  var chipBlock = '<div class="fg-chip" data-value="';
+  chipBlock     += chiptext;
+  chipBlock     += '">';
+  chipBlock     += chiptext;
+  chipBlock     += '<span class="fg-remove-chip">X</span></div>';
+
+  return chipBlock;
 }
 
 function generateText(ids,classes,name,placeholder,currentVal){
@@ -217,7 +257,7 @@ function generateFile(ids,classes,name,placeholder,currentVal,multipleImage){
   return input;
 }
 
-function generateImage(ids,classes,name,placeholder,currentVal,multipleImage){
+function generateImage(ids,classes,name,placeholder,currentVal,imagePath,multipleImage,multipleSeparator){
   input = '';
   input += '<input type="file" name="';
   input += name;
@@ -237,6 +277,19 @@ function generateImage(ids,classes,name,placeholder,currentVal,multipleImage){
   input += '/>';
   input += '<br/>';
   input += '<div class="fg-image-previews">';
+  if(currentVal != '')
+  {
+    var loopImage = 0;
+    var images = [currentVal];
+    if(multipleImage)
+    {
+      images = currentVal.split(multipleSeparator);
+    }
+    for(loopImage=0;loopImage < images.length;loopImage++)
+    {
+      input += '<img src="' + imagePath + images[loopImage] +'" class="fg-preview-image">';
+    }
+  }
   input += '</div>';
   return input;
 }
@@ -394,12 +447,15 @@ function generateDate(ids,classes,name,currentVal){
   var m = currentVal.substring(5,7);
   var d = currentVal.substring(8,10);
   input = '';
+
   //Day Input
   input += '<div class="fg-row">';
   input += '<input type="hidden" name="';
   input += name;
   input += '" class="fg-date-hidden" value="';
+  input += currentVal;
   input += '"/>';
+
   input += '<div class="three-twelfth">';
   input += '<input type="text" name="';
   input += name + '_day';

@@ -91,12 +91,36 @@
 
         <div class="fg-input"
           data-type="image"
+          data-label="Image Upload Example (Single File, Current Image Available)"
+          data-name="image_1"
+          data-validation=""
+          data-placeholder="insert file"
+          data-current="1.png"
+          data-image-path="./images/"
+          >
+        </div>
+
+        <div class="fg-input"
+          data-type="image"
           data-label="Image Upload Example (Multiple File)"
           data-name="image_2"
           data-validation=""
           data-placeholder="insert file"
           data-current=""
           data-multiple="1"
+          >
+        </div>
+
+        <div class="fg-input"
+          data-type="image"
+          data-label="Image Upload Example (Multiple File, Current Image Available)"
+          data-name="image_2"
+          data-validation=""
+          data-placeholder="insert file"
+          data-current="1.png,2.png,3.jpg"
+          data-image-path="./images/"
+          data-multiple="1"
+          data-multiple-separator=","
           >
         </div>
 
@@ -113,7 +137,7 @@
 
       <div class="fg-input"
         data-type="date"
-        data-label="Start Date"
+        data-label="Start Date (Available Current Data)"
         data-name="start_date"
         data-validation=""
         data-current="2016-05-12">
@@ -149,6 +173,17 @@
         data-validation=""
         data-placeholder="insert autocomplete text with multiple chips"
         data-current=""
+        data-multiple-chip="+ add more to list"
+        data-items="Faoo, Bar, Jaohn, Daoe, Haello, Waorld,Faoo2, Bar2, Jaohn2, Doe2, Helloa2, Waorld2,">
+      </div>
+
+      <div class="fg-input"
+        data-type="text-autocomplete"
+        data-label="Autocomplete Field (Available Current Data)"
+        data-name="auto_1"
+        data-validation=""
+        data-placeholder="insert autocomplete text with multiple chips"
+        data-current="fong|||cong|||bong|||long"
         data-multiple-chip="+ add more to list"
         data-items="Faoo, Bar, Jaohn, Daoe, Haello, Waorld,Faoo2, Bar2, Jaohn2, Doe2, Helloa2, Waorld2,">
       </div>
