@@ -200,9 +200,6 @@ There are several features planned on the next release, such as:
 2. data-ajax for ajax call during the input blur or keyups.
 3. More input validations.
 4. Customizable error messages.
-5. Travis CI integration.
-6. Test cases using PhantomJs.
-7. rewrite these into ES6!
 
 ##Contributing to the Project
 
